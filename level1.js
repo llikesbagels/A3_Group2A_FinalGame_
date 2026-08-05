@@ -676,11 +676,16 @@ function drawTitleScreen() {
 }
 
 function drawNextLevelButton() {
+  rectMode(CORNER);
+  textAlign(CENTER, CENTER);
   let bw = min(width*0.28, 260);
   let bh = min(height*0.09, 64);
   let bx = width/2 - bw/2;
-  let by = height/2 + 90; // sits below the win text — adjust to taste
-  nextLevelBtn.x = bx; nextLevelBtn.y = by; nextLevelBtn.w = bw; nextLevelBtn.h = bh;
+  let by = height/2 + 90;
+  nextLevelBtn.x = bx;
+  nextLevelBtn.y = by;
+  nextLevelBtn.w = bw;
+  nextLevelBtn.h = bh;
 
   if (floor(frameCount/20)%2===0) {
     noFill(); stroke(200,230,160,150); strokeWeight(3);
@@ -692,7 +697,7 @@ function drawNextLevelButton() {
   rect(bx+2, by+2, bw-4, bh-4, (bh-4)/2); noStroke();
 
   fill(255,248,235);
-  textAlign(CENTER,CENTER); textFont('Georgia'); textStyle(BOLD);
+  textFont('Georgia'); textStyle(BOLD);
   textSize(bh*0.32);
   text('Go to Level 2', bx+bw/2, by+bh/2);
   textStyle(NORMAL);
@@ -902,7 +907,8 @@ function mousePressed() {
     let inBtn = mouseX > nextLevelBtn.x && mouseX < nextLevelBtn.x + nextLevelBtn.w
              && mouseY > nextLevelBtn.y && mouseY < nextLevelBtn.y + nextLevelBtn.h;
     if (inBtn) {
-      window.location.href = "level2.html"; // ← change to your actual level 3 page filename
+      window.location.assign("level2.html");
+      return;
     }
   }
 }

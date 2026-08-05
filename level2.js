@@ -15,6 +15,7 @@
 //  from that height is meant to cost you everything at once.
 // ─────────────────────────────────────────────────────────
 
+let startBtn = { x:0, y:0, w:0, h:0 }; // recomputed every frame, used for click hit-testing
 
 let imgDistant, imgCloser, imgGround, imgTrees, imgBg1;
 let imgWaterfall, imgPlatforms, imgSprites;
@@ -949,15 +950,19 @@ function updateFlip() {
 }
 
 function drawNextLevelButton() {
+  rectMode(CORNER);
+  textAlign(CENTER, CENTER);
   let bw = min(width*0.28, 260);
   let bh = min(height*0.09, 64);
   let bx = width/2 - bw/2;
-  let by = height/2 + 90; // sits below the win text — adjust to taste
-    nextLevelBtn.x = bx; nextLevelBtn.y = by; nextLevelBtn.w = bw; nextLevelBtn.h = bh;
-
+  let by = height/2 + 90;
+  nextLevelBtn.x = bx;
+  nextLevelBtn.y = by;
+  nextLevelBtn.w = bw;
+  nextLevelBtn.h = bh;
 
   if (floor(frameCount/20)%2===0) {
-    noFill(); stroke("0,119,255,255"); strokeWeight(3);
+    noFill(); stroke(0,119,255,255); strokeWeight(3);
     rect(bx-5, by-5, bw+10, bh+10, bh/2+5); noStroke();
   }
   noStroke(); fill(0,0,0,120); rect(bx+3, by+3, bw, bh, bh/2);
@@ -966,7 +971,7 @@ function drawNextLevelButton() {
   rect(bx+2, by+2, bw-4, bh-4, (bh-4)/2); noStroke();
 
   fill(255,248,235);
-  textAlign(CENTER,CENTER); textFont('Georgia'); textStyle(BOLD);
+  textFont('Georgia'); textStyle(BOLD);
   textSize(bh*0.32);
   text('Go to Level 3', bx+bw/2, by+bh/2);
   textStyle(NORMAL);
