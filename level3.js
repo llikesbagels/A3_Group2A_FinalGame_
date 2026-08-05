@@ -240,7 +240,7 @@ function preload() {
   imgBgTrees   = loadImage('assets/images/Background.png');
   //imgBushes    = loadImage('assets/images/Asset9.png');
   title        = loadImage('assets/images/nothing.png');
-    imgFinishSign= loadImage('assets/images/Village.png');
+    imgFinishSign= loadImage('assets/images/Village2.png');
 
   elleground   = loadImage('assets/images/Redux2.png');
 
