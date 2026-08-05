@@ -1,8 +1,4 @@
-﻿// ─────────────────────────────────────────────────────────
-//  THROUGH THE TREES — Tutorial Level
-// ─────────────────────────────────────────────────────────
-
-let imgSky, imgBgTrees, imgBushes, imgGround, imgFgTrees;
+﻿let imgSky, imgBgTrees, imgBushes, imgGround, imgFgTrees;
 let imgSprites, imgLog, imgRock, imgRacoon, imgRabbit;
 let imgSign, imgPlatform, imgPlatform2, imgFloatingPlat, imgFinishSign;
 let imgTitleScreen;
@@ -161,7 +157,17 @@ function setup() {
   charX = width * 0.25;
   charY = groundY();
   loadSounds();   // decoupled from preload — can't block canvas creation
- 
+
+  const canvasEl = document.querySelector('canvas');
+  if (canvasEl) {
+    canvasEl.addEventListener('pointerdown', (event) => {
+      if (showTitleScreen || !gameWon) return;
+      if (isInsideButton(mouseX, mouseY, nextLevelBtn)) {
+        event.preventDefault();
+        window.location.assign('level2.html');
+      }
+    });
+  }
 }
 
 function windowResized() {
@@ -703,6 +709,16 @@ function drawNextLevelButton() {
   textStyle(NORMAL);
 }
 
+function isInsideButton(px, py, btn) {
+  return px >= btn.x && px <= btn.x + btn.w && py >= btn.y && py <= btn.y + btn.h;
+}
+
+function handleWinButtonClick() {
+  if (!gameWon) return;
+  if (!isInsideButton(mouseX, mouseY, nextLevelBtn)) return;
+  window.location.assign("level2.html");
+}
+
 function drawStartButton() {
   let bw = min(titleImgRect.w*0.20, 260);
   let bh = min(titleImgRect.h*0.085, 70);
@@ -903,12 +919,8 @@ function mousePressed() {
     return;
   }
 
-  if (gameWon) {
-    let inBtn = mouseX > nextLevelBtn.x && mouseX < nextLevelBtn.x + nextLevelBtn.w
-             && mouseY > nextLevelBtn.y && mouseY < nextLevelBtn.y + nextLevelBtn.h;
-    if (inBtn) {
-      window.location.assign("level2.html");
-      return;
-    }
-  }
+  handleWinButtonClick();
 }
+
+
+

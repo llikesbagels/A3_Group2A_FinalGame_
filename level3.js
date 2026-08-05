@@ -198,6 +198,16 @@ function drawNextLevelButton() {
   textStyle(NORMAL);
 }
 
+function isInsideButton(px, py, btn) {
+  return px >= btn.x && px <= btn.x + btn.w && py >= btn.y && py <= btn.y + btn.h;
+}
+
+function handleWinButtonClick() {
+  if (!gameWon) return;
+  if (!isInsideButton(mouseX, mouseY, nextLevelBtn)) return;
+  window.location.assign("level1.html");
+}
+
 function resetObstacleStates() {
   for (let o of LOGS) {
     o.kind = 'log';
@@ -260,6 +270,7 @@ function setup() {
   charX = width * 0.25;
   charY = groundY();
   loadSounds();   // decoupled from preload — can't block canvas creation
+
  
 }
 
@@ -820,15 +831,15 @@ function drawFlipHUD() {
   if (!flipped && countdown > 0) {
     noStroke(); fill(0,0,0,55); rect(0,0,width,height);
     let cx=width/2, cy=height/2;
-    if (floor(frameCount/6)%2===0) { noFill(); stroke(200,220,180,140); strokeWeight(3); ellipse(cx,cy,height*0.38,height*0.38); noStroke(); }
-    fill(20,35,18,180); ellipse(cx,cy,height*0.32,height*0.32);
-    stroke(120,160,90,200); strokeWeight(2); noFill(); ellipse(cx,cy,height*0.32,height*0.32); noStroke();
+    if (floor(frameCount/6)%2===0) { noFill(); stroke(200,0,0,140); strokeWeight(3); ellipse(cx,cy,height*0.38,height*0.38); noStroke(); }
+    fill(35,0,0,180); ellipse(cx,cy,height*0.32,height*0.32);
+    stroke(0,0,0,200); strokeWeight(2); noFill(); ellipse(cx,cy,height*0.32,height*0.32); noStroke();
     textAlign(CENTER,CENTER); textFont('Georgia'); textStyle(BOLD); textSize(height*0.14);
     fill(0,0,0,160); text(str(countdown),cx+3,cy+3);
-    fill(210,230,185); text(str(countdown),cx,cy);
+    fill(255,255,255); text(str(countdown),cx,cy);
     textSize(height*0.024); textStyle(NORMAL);
     fill(0,0,0,140); text('controls changing',cx+2,cy+height*0.21+2);
-    fill(190,215,165); text('controls changing',cx,cy+height*0.21);
+    fill(255,255,255); text('controls changing',cx,cy+height*0.21);
   }
 
 
@@ -838,12 +849,12 @@ function drawFlipHUD() {
     let tw=textWidth(msg), pw=tw+60, ph=height*0.072;
     let px=cx-pw/2, py=ty-ph/2;
     noStroke(); fill(0,0,0,100); rect(px+3,py+3,pw,ph,ph/2);
-    fill(32,48,28,210); rect(px,py,pw,ph,ph/2);
-    stroke(110,155,80,200); strokeWeight(2); noFill(); rect(px+3,py+3,pw-6,ph-6,ph/2); noStroke();
-    fill(90,140,65,200); ellipse(px+14,ty,12,7); ellipse(px+pw-14,ty,12,7);
+    fill(32,0,0,210); rect(px,py,pw,ph,ph/2);
+    stroke(110,0,0,200); strokeWeight(2); noFill(); rect(px+3,py+3,pw-6,ph-6,ph/2); noStroke();
+    fill(90,0,0,200); ellipse(px+14,ty,12,7); ellipse(px+pw-14,ty,12,7);
     textAlign(CENTER,CENTER);
     fill(0,0,0,160); text(msg,cx+2,ty+2);
-    fill(210,235,175); text(msg,cx,ty);
+    fill(210,0,0); text(msg,cx,ty);
     textStyle(NORMAL);
 
 
@@ -1078,19 +1089,5 @@ function keyPressed() {
 function mousePressed() {
   startAudioOnce();
 
-  if (showTitleScreen) {
-    let inBtn = mouseX > startBtn.x && mouseX < startBtn.x + startBtn.w
-             && mouseY > startBtn.y && mouseY < startBtn.y + startBtn.h;
-    if (inBtn) showTitleScreen = false;
-    return;
-  }
-
-  if (gameWon) {
-    let inBtn = mouseX > nextLevelBtn.x && mouseX < nextLevelBtn.x + nextLevelBtn.w
-             && mouseY > nextLevelBtn.y && mouseY < nextLevelBtn.y + nextLevelBtn.h;
-    if (inBtn) {
-      window.location.assign("level1.html");
-      return;
-    }
-  }
+  handleWinButtonClick();
 }

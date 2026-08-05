@@ -632,6 +632,16 @@ function setup() {
  charX = width * 0.25;
  charY = groundY();
  loadSounds();
+
+ 
+}
+
+
+
+// Change the background color.
+function repaint() {
+  let g = random(255);
+  background(g);
 }
 
 
@@ -975,6 +985,16 @@ function drawNextLevelButton() {
   textSize(bh*0.32);
   text('Go to Level 3', bx+bw/2, by+bh/2);
   textStyle(NORMAL);
+}
+
+function isInsideButton(px, py, btn) {
+  return px >= btn.x && px <= btn.x + btn.w && py >= btn.y && py <= btn.y + btn.h;
+}
+
+function handleWinButtonClick() {
+  if (!gameWon) return;
+  if (!isInsideButton(mouseX, mouseY, nextLevelBtn)) return;
+  window.location.assign("level3.html");
 }
 // ─────────────────────────────────────────────────────────
 // "Cover" style scaling (like CSS background-size:cover): the scale
@@ -1638,19 +1658,7 @@ window.addEventListener('blur', () => { sKeyHeld = false; });
 function mousePressed() {
   startAudioOnce();
 
-  if (showTitleScreen) {
-    let inBtn = mouseX > startBtn.x && mouseX < startBtn.x + startBtn.w
-             && mouseY > startBtn.y && mouseY < startBtn.y + startBtn.h;
-    if (inBtn) showTitleScreen = false;
-    return;
-  }
 
-  if (gameWon) {
-    let inBtn = mouseX > nextLevelBtn.x && mouseX < nextLevelBtn.x + nextLevelBtn.w
-             && mouseY > nextLevelBtn.y && mouseY < nextLevelBtn.y + nextLevelBtn.h;
-    if (inBtn) {
-      window.location.assign("level3.html");
-      return;
-    }
-  }
+  handleWinButtonClick();
 }
+
