@@ -94,5 +94,5 @@ Post-Showcase: After receiving feedback in class...
 
 [8] Penelope Sweetser and Peta Wyeth. 2005. GameFlow: a model for evaluating player enjoyment in games. Comput. Entertain. 3, 3 (July 2005), 3. https://doi.org/10.1145/1077246.1077253
 
-Note: All illustrations were made by our group members, and that is why they are not referenced/sourced.
+Note: All illustrations were made by our group members. Debug Panel was taken from Side Quest 9 
 
