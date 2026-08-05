@@ -183,7 +183,7 @@ function drawNextLevelButton() {
     rect(bx-5, by-5, bw+10, bh+10, bh/2+5); noStroke();
   }
   noStroke(); fill(0,0,0,120); rect(bx+3, by+3, bw, bh, bh/2);
-  fill(85,105,135,235); rect(bx, by, bw, bh, bh/2);
+  fill(235,141,141,235); rect(bx, by, bw, bh, bh/2);
   stroke(176,176,176,220); strokeWeight(2); noFill();
   rect(bx+2, by+2, bw-4, bh-4, (bh-4)/2); noStroke();
 
