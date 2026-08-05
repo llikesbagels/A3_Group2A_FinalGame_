@@ -3,6 +3,9 @@ let imgSprites, imgLog, imgRock, imgRacoon, imgRabbit;
 let imgSign, imgPlatform, imgPlatform2, imgSpikes, imgFinishSign;
 
 
+let startBtn = { x:0, y:0, w:0, h:0 }; // recomputed every frame, used for click hit-testing
+let nextLevelBtn = { x:0, y:0, w:0, h:0 };
+
 let sndMusic, sndJump, sndDamage, sndWin, sndWalk;
 let walkSoundTimer = 0;
 let audioStarted    = false;   // has the AudioContext been resumed yet?
@@ -165,6 +168,30 @@ function updatePlatDistance() {
       p.wx = constrain(p.wx, p.minWx, p.maxWx - 100);
     }
   }
+}
+
+function drawNextLevelButton() {
+  let bw = min(width*0.28, 260);
+  let bh = min(height*0.09, 64);
+  let bx = width/2 - bw/2;
+  let by = height/2 + 90; // sits below the win text — adjust to taste
+    nextLevelBtn.x = bx; nextLevelBtn.y = by; nextLevelBtn.w = bw; nextLevelBtn.h = bh;
+
+
+  if (floor(frameCount/20)%2===0) {
+    noFill(); stroke("0,119,255,255"); strokeWeight(3);
+    rect(bx-5, by-5, bw+10, bh+10, bh/2+5); noStroke();
+  }
+  noStroke(); fill(0,0,0,120); rect(bx+3, by+3, bw, bh, bh/2);
+  fill(85,105,135,235); rect(bx, by, bw, bh, bh/2);
+  stroke(176,176,176,220); strokeWeight(2); noFill();
+  rect(bx+2, by+2, bw-4, bh-4, (bh-4)/2); noStroke();
+
+  fill(255,248,235);
+  textAlign(CENTER,CENTER); textFont('Georgia'); textStyle(BOLD);
+  textSize(bh*0.32);
+  text('Start Over?', bx+bw/2, by+bh/2);
+  textStyle(NORMAL);
 }
 
 function resetObstacleStates() {
@@ -976,6 +1003,7 @@ function drawWinScreen() {
   textStyle(NORMAL); textSize(height*0.024); fill(120,80,40);
   text('She found her way through the forest.',width/2,height/2+22);
   if (floor(frameCount/30)%2===0) { textSize(height*0.020); fill(160,110,60); text('press SPACE to play again',width/2,height/2+60); }
+ drawNextLevelButton();
 }
 
 
