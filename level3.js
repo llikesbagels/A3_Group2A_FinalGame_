@@ -81,7 +81,7 @@ const INTRO_FADE_FRAMES = 60;
 let introTimer = INTRO_DISPLAY_FRAMES + INTRO_FADE_FRAMES + 50;
 let introFadeStarted = false;
 
-
+//depoy
 
 const FLIP_AT       = [500,4100, 5200];
 let   flipIndex     = 0;
