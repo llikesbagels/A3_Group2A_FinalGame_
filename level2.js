@@ -460,7 +460,7 @@ function topScreenY(cy) {
 // independent of camZoom: at the exact moment the door is centered
 // under the character, the zoom multiplier drops out of the algebra.
 function doorWorldX() {
- return TOP_WX - width*0.25 + (DOOR_CANVAS_X + TOP_X_ALIGN_OFFSET) * topBaseScale();
+ return TOP_WX - width*0.25 + (DOOR_CANVAS_X + TOP_X_ALIGN_OFFSET) * topBaseScale() - 650;
 }
 
 
@@ -627,11 +627,18 @@ function preload() {
 
 
 function setup() {
- createCanvas(windowWidth, windowHeight);
- imageMode(CORNER);
+ let targetRatio = 16/9;
+ let w = windowWidth;
+let h = windowHeight;
+  if (w/h > targetRatio) w = h * targetRatio;
+  else h = w / targetRatio;
+ createCanvas(w, h);
+
  charX = width * 0.25;
  charY = groundY();
  loadSounds();
+
+
 
  
 }
@@ -861,14 +868,20 @@ if (!onGround) {
      // but it now also wipes all 3 hearts on the way down, so the
      // HUD/lose-screen state reflects "lost everything" rather than
      // just an unrelated instant kill sitting alongside the HP bar.
-     hp = 0;
-     gameLost = true;
-     loseReason = 'fall';
-     standingPlatformIndex = -1;
-     onTopLedge=false;
-     if (sndDamage && sndDamage.isLoaded()) { sndDamage.stop(); sndDamage.play(); }
-     if (sndMusic && sndMusic.isLoaded()) sndMusic.stop();
-     return;
+     checkDamage();
+     
+     if(hp > 0){
+      worldX = 5700
+     }
+     else if (hp <=0){
+      loseReason = 'fall';
+      gamelost = true;
+      if (sndMusic && sndMusic.isLoaded()) sndMusic.stop();
+      return;
+     };
+     
+     
+    
    }
    charY = gy; velY = 0; onGround = true;
    standingPlatformIndex = -1;
@@ -926,9 +939,9 @@ drawAnimals();
 // camPanY as the character climbs higher up the cliff.
 push();
 translate(0, -camPanY);
-
-drawClimbScene(platformOpacity(revealHeld));
 drawCliffTop();
+drawClimbScene(platformOpacity(revealHeld));
+
 drawDebugPlatformBoxes();
 drawDebugDoor();
 drawDebugTopLedge();   // must be HERE, inside push/pop
@@ -1011,6 +1024,7 @@ function handleWinButtonClick() {
 // from growth extends upward, so a bigger ground reveals more of
 // itself higher up the screen instead of spilling off the bottom.
 function tileLayer(img, destH, destY, scrollAmt, growth = 1, anchorBottom = false) {
+  
  if (!img) return;
  let scale = max(width / img.width, destH / img.height) * growth;
  let tileW = img.width * scale;
@@ -1134,7 +1148,6 @@ function drawClimbScene(opacity) {
  let rightSX = climbScreenX(CANVAS_W);
  if (rightSX < -50 || leftSX > width+50) return;
 // in drawClimbScene(), right after the leftSX/rightSX check:
-if (frameCount % 15 === 0) console.log('LEFT waterfall visible, worldX =', worldX, 'leftSX=', leftSX);
 
  imageMode(CORNER);
  // waterfall.png has a blank white margin on its left third — crop
@@ -1174,8 +1187,7 @@ if (frameCount % 15 === 0) console.log('LEFT waterfall visible, worldX =', world
  let waterfallDX = waterfallCenterX - waterfallW / 2;
  let waterfallDY = waterfallCenterY - waterfallH / 2;
 
-
- image(imgWaterfall, waterfallDX, waterfallDY, waterfallW, waterfallH, cropXReal, 0, cropWReal, srcH);
+ image(imgWaterfall, waterfallDX, waterfallDY, waterfallW, waterfallH, cropXReal, 0, cropWReal);
 
 
  // Each stone ledge is drawn as its own cropped sprite, positioned
@@ -1226,9 +1238,9 @@ if (frameCount % 15 === 0) console.log('RIGHT cliff visible, worldX =', worldX, 
 
  let s2 = topBaseScale() * camZoom * TOP_DRAW_SCALE;
  let dw = TOP_CANVAS_W * s2;
- let dh = TOP_CANVAS_H * s2;
- let dx = centerScreenX - dw / 2;
- let dy = centerScreenY - dh / 2;
+ let dh = TOP_CANVAS_H * s2 ;
+ let dx = centerScreenX - (dw / 2) - 650;
+ let dy = centerScreenY - dh / 2 ;
 
  if (frameCount % 30 === 0) {
    console.log('cliffTop draw', {dx, dy, dw, dh, imgW: imgCliffTop.width, imgH: imgCliffTop.height});

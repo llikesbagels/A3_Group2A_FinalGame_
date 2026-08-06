@@ -24,7 +24,7 @@ function loadSounds() {
   sndWalk   = loadSound('assets/sounds/walking.mp3', () => {}, () => { console.warn('walking.mp3 failed to load'); sndWalk   = null; });
 }
 
-
+//im gonna peeee
 function startAudioOnce() {
   if (!audioStarted) {
     audioStarted = true;
