@@ -53,7 +53,7 @@ let isMoving   = false;
 
 
 const GRAVITY    = 0.65;
-const JUMP_FORCE = -20;
+const JUMP_FORCE = -19;
 const WALK_SPEED = 7;
 
 
@@ -83,7 +83,7 @@ let introFadeStarted = false;
 
 
 
-const FLIP_AT       = [500, 5200];
+const FLIP_AT       = [500,4100, 5200];
 let   flipIndex     = 0;
 let   flipped       = false;
 let   flipTimer     = 0;

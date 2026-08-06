@@ -130,8 +130,8 @@ function preload() {
   imgGround    = loadImage('assets/images/Asset 10.png', () => {}, onImgFail('Asset 10.png'));
   imgFgTrees   = loadImage('assets/images/Asset 8.png', () => {}, onImgFail('Asset 8.png'));
   imgSprites   = loadImage('assets/images/sprites2.png', () => {}, onImgFail('sprites2.png'));
-  imgLog       = loadImage('assets/images/log.png', () => {}, onImgFail('log.png'));
-  imgRock      = loadImage('assets/images/rock.png', () => {}, onImgFail('rock.png'));
+  imgLog       = loadImage('assets/images/Fuck.png', () => {}, onImgFail('alog.png'));
+  imgRock      = loadImage('assets/images/Shit.png', () => {}, onImgFail('Shit.png'));
   imgRacoon    = loadImage('assets/images/racoon.png', () => {}, onImgFail('racoon.png'));
   imgRabbit    = loadImage('assets/images/rabbit.png', () => {}, onImgFail('rabbit.png'));
   imgSign      = loadImage('assets/images/sign.png', () => {}, onImgFail('sign.png'));
@@ -455,18 +455,20 @@ function drawPlatforms() {
 // ─────────────────────────────────────────────────────────
 function drawObstacles() {
   let gy=groundY();
-  let logH=height*0.10, logW=logH*(139/88);
-  let rockH=height*0.08, rockW=rockH*(117/66);
+  let logH=height*0.08, logW=logH*(139/88);
+  let rockH=height*0.08, rockW=rockH*(200/100);
   imageMode(CORNER);
   for (let o of LOGS) {
     let sx=toScreen(o.wx);
     if (sx<-200||sx>width+200) continue;
-    image(imgLog,sx,gy-logH,logW,logH,258,46,139,88);
+    image(imgLog,sx,gy-logH -30,logW + 100,logH + 70,258,20,157,140);
   }
   for (let o of ROCKS) {
+      imageMode(CORNER);
+
     let sx=toScreen(o.wx);
     if (sx<-200||sx>width+200) continue;
-    image(imgRock,sx,gy-rockH,rockW,rockH,115,56,117,66);
+    image(imgRock,sx,gy-rockH - 30 ,rockW + 100,rockH + 70,100,30,157,140);
   }
 }
 

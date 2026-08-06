@@ -96,7 +96,7 @@ let introFadeStarted = false;
 
 
 // ── control-flip mechanic (unchanged from level 1) ─────────
-const FLIP_AT       = [1300, 4400, 7900];
+const FLIP_AT       = [1400, 4420, 7900];
 let   flipIndex     = 0;
 let   flipped       = false;
 let   flipTimer     = 0;
@@ -613,8 +613,8 @@ function preload() {
  imgWaterfall = loadImage('assets/images/waterfall.png',          () => {}, onImgFail('waterfall.png'));
  imgPlatforms = loadImage('assets/images/platforms.png',          () => {}, onImgFail('platforms.png'));
  imgSprites   = loadImage('assets/images/sprites2.png',           () => {}, onImgFail('sprites2.png'));
- imgLog       = loadImage('assets/images/log.png',                () => {}, onImgFail('log.png'));
- imgRock      = loadImage('assets/images/rock.png',                () => {}, onImgFail('rock.png'));
+ imgLog       = loadImage('assets/images/Fuck.png',                () => {}, onImgFail('Fuck.png'));
+ imgRock      = loadImage('assets/images/Shit.png',                () => {}, onImgFail('Shit.png'));
  imgRacoon    = loadImage('assets/images/racoon.png',              () => {}, onImgFail('racoon.png'));
  imgRabbit    = loadImage('assets/images/rabbit.png',              () => {}, onImgFail('rabbit.png'));
  imgCliffTop  = loadImage('assets/images/waterfall_top.png',       () => {}, onImgFail('waterfall_top.png'));
@@ -627,12 +627,8 @@ function preload() {
 
 
 function setup() {
- let targetRatio = 16/9;
- let w = windowWidth;
-let h = windowHeight;
-  if (w/h > targetRatio) w = h * targetRatio;
-  else h = w / targetRatio;
- createCanvas(w, h);
+   createCanvas(windowWidth, windowHeight);
+
 
  charX = width * 0.25;
  charY = groundY();
@@ -1120,7 +1116,7 @@ drawSkyGradient(skyTop, skyBot);
  // strip of each, matching the reference screenshot proportions,
  // with the growth pushing their visible top edge further up.
    tileLayer(imgGround, height, 0, worldX*SCROLL_GROUND, GROUND_GROWTH, true);
- tileLayer(imgTrees,   height, -225, worldX*SCROLL_GROUND, TREES_GROWTH,  true);
+ tileLayer(imgTrees,   height, -160, worldX*SCROLL_GROUND, TREES_GROWTH,  true);
 }
 
 
@@ -1255,27 +1251,23 @@ if (frameCount % 15 === 0) console.log('RIGHT cliff visible, worldX =', worldX, 
 // ─────────────────────────────────────────────────────────
 // ── ground obstacles (reused from Level 1) ──────────────────
 function drawObstacles() {
- // groundY() is the physics ground line the character's feet sit on,
- // but the character sprite itself is drawn CHAR_DRAW_OFFSET pixels
- // higher (see drawChar) to compensate for empty padding baked into
- // the sprite frame. Obstacles don't have that padding, so without
- // the same correction they'd render sunk below the character's
- // visible feet — applying it here puts them on the same visible
- // ground line.
+
  let gy=groundY()+CHAR_DRAW_OFFSET;
  let logH=height*0.10, logW=logH*(139/88);
  let rockH=height*0.08, rockW=rockH*(117/66);
  imageMode(CORNER);
  for (let o of LOGS) {
-   let sx=toScreen(o.wx);
-   if (sx<-200||sx>width+200) continue;
-   image(imgLog,sx,gy-logH,logW,logH,258,46,139,88);
- }
- for (let o of ROCKS) {
-   let sx=toScreen(o.wx);
-   if (sx<-200||sx>width+200) continue;
-   image(imgRock,sx,gy-rockH,rockW,rockH,115,56,117,66);
- }
+    let sx=toScreen(o.wx);
+    if (sx<-200||sx>width+200) continue;
+    image(imgLog,sx,gy-logH -30,logW + 100,logH + 70,258,20,157,140);
+  }
+  for (let o of ROCKS) {
+      imageMode(CORNER);
+
+    let sx=toScreen(o.wx);
+    if (sx<-200||sx>width+200) continue;
+    image(imgRock,sx,gy-rockH - 30 ,rockW + 100,rockH + 70,100,30,157,140);
+  }
 }
 
 
