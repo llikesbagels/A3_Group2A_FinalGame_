@@ -474,7 +474,7 @@ let camZoom      = 1;
 let zoomedOut    = false;
 const ZOOM_TRIGGER = CLIMB_ZONE_START - 900; // start easing out a bit before the cliff
 const ZOOM_TARGET  = 0.85;                   // final "pulled back" zoom level
-const ZOOM_SPEED   = 0.015;                  // easing rate per frame toward target
+const ZOOM_SPEED   = 0.008;                  // easing rate per frame toward target
 let nextLevelBtn = { x:0, y:0, w:0, h:0 };
 let titleImgRect = { x:0, y:0, w:0, h:0 }; // where the letterboxed art actually sits on screen
 
@@ -533,7 +533,8 @@ let debugMode = false;
 const SCROLL_CLOUDS   = 0.04;
 const SCROLL_DISTANT  = 0.10;
 const SCROLL_CLOSER   = 0.28;
-const SCROLL_GROUND   = 0.85;
+const SCROLL_GROUND   = 0.55;
+//y'know I'd fix kalea hack job assets but im really tired
 
 
 // ── debug collision overlay ─────────────────────────────────
@@ -608,7 +609,7 @@ function preload() {
  imgDistant   = loadImage('assets/images/distant_mountains.png', () => {}, onImgFail('distant_mountains.png'));
  imgCloser    = loadImage('assets/images/closer_mountains.png',  () => {}, onImgFail('closer_mountains.png'));
  imgGround    = loadImage('assets/images/ground.png',            () => {}, onImgFail('ground.png'));
- imgTrees     = loadImage('assets/images/lvl2trees.png',         () => {}, onImgFail('lvl2trees.png'));
+ imgTrees     = loadImage('assets/images/trees6.png',         () => {}, onImgFail('trees6.png'));
  imgBg1       = loadImage('assets/images/bg1.png',                () => {}, onImgFail('bg1.png'));
  imgWaterfall = loadImage('assets/images/waterfall.png',          () => {}, onImgFail('waterfall.png'));
  imgPlatforms = loadImage('assets/images/platforms.png',          () => {}, onImgFail('platforms.png'));
@@ -1116,7 +1117,7 @@ drawSkyGradient(skyTop, skyBot);
  // strip of each, matching the reference screenshot proportions,
  // with the growth pushing their visible top edge further up.
    tileLayer(imgGround, height, 0, worldX*SCROLL_GROUND, GROUND_GROWTH, true);
- tileLayer(imgTrees,   height, -160, worldX*SCROLL_GROUND, TREES_GROWTH,  true);
+ tileLayer(imgTrees,   height, -190, worldX*SCROLL_GROUND, TREES_GROWTH,  true);
 }
 
 
