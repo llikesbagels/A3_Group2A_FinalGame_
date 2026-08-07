@@ -100,7 +100,6 @@ const LOGS = [
 
   { wx: 7000, kind: 'log', transformed: false }, // log 2: edit x-position here
 
-  //{ wx: 4800 }, // removed log before the platform section
 ];
 const ROCK_LOG_SWAP_MARGIN = 80;
 
@@ -249,7 +248,7 @@ function preload() {
   imgSprites   = loadImage('assets/images/sprites2.png');
   imgLog       = loadImage('assets/images/Amber.png');
   imgRock      = loadImage('assets/images/rocksharp.png');
-  imgRacoon    = loadImage('assets/images/nothing.png');
+  imgRacoon    = loadImage('assets/images/nothing.png'); //this is a good plan
   imgRabbit    = loadImage('assets/images/nothing.png');
   imgSign      = loadImage('assets/images/sign.png');
   imgPlatform  = loadImage('assets/images/realplatform.png');
@@ -269,7 +268,7 @@ function setup() {
   imageMode(CORNER);
   charX = width * 0.25;
   charY = groundY();
-  loadSounds();   // decoupled from preload — can't block canvas creation
+  loadSounds();  
 
  
 }
@@ -505,7 +504,7 @@ function updateFlip() {
 }
 
 
-// ─────────────────────────────────────────────────────────
+
 function tileLayer(img, destH, destY, scrollAmt) {
   if (!img) return;
   let scale=destH/img.height, tileW=img.width*scale;
@@ -687,7 +686,7 @@ function drawAnimals() {
 
 
 // ─────────────────────────────────────────────────────────
-function drawStartSign() {
+function drawStartSign() { //not called
   let sx=toScreen(120), gy=groundY();
   if (sx<-300||sx>width+300) return;
   let dh=height*0.28, dw=dh*(197/268);
@@ -698,7 +697,7 @@ function drawStartSign() {
 
 
 // ─────────────────────────────────────────────────────────
-function drawFinishSign() {
+function drawFinishSign() { //this is village
   let sx=toScreen(LEVEL_END + 50), gy=groundY();
   if (sx<-300||sx>width+300) return;
   let dh=height*0.28, dw=dh*(300/400);
